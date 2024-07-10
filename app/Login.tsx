@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react';
-import { pb } from './pocketbase'
+import { useState, useEffect } from "react";
+import { pb } from "./pocketbase";
 
 export default function GitHubLogin() {
   const [user, setUser] = useState<any>(null);
@@ -21,16 +21,16 @@ export default function GitHubLogin() {
 
   const login = async () => {
     try {
-      const authData = await pb.collection('users').authWithOAuth2({
-        provider: 'github',
+      const authData = await pb.collection("users").authWithOAuth2({
+        provider: "github",
       });
-      
+
       // Authentication successful
-      console.log('Logged in:', pb.authStore.isValid);
-      console.log('User Data:', pb.authStore.model);
+      console.log("Logged in:", pb.authStore.isValid);
+      console.log("User Data:", pb.authStore.model);
       setUser(authData.record);
     } catch (error) {
-      console.error('Authentication failed:', error);
+      console.error("Authentication failed:", error);
     }
   };
 
@@ -42,14 +42,23 @@ export default function GitHubLogin() {
     <div>
       {user ? (
         <div>
-          <p className="w-full py-2 px-4 text-gray-500 text-bold">Welcome, {user.name || user.username}!</p>
-          <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
- onClick={logout}>Logout</button>
-          
+          <p className="w-full py-2 px-4 text-gray-500 text-bold">
+            Welcome, {user.name || user.username}!
+          </p>
+          <button
+            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+            onClick={logout}
+          >
+            Logout
+          </button>
         </div>
       ) : (
-        <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-        onClick={login}>Login with GitHub</button>
+        <button
+          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+          onClick={login}
+        >
+          Login with GitHub
+        </button>
       )}
     </div>
   );
